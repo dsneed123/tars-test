@@ -1,0 +1,19 @@
+{
+  "name": "tars-test",
+  "version": "1.0.0",
+  "description": "A simple demonstration project showcasing the integration of TARS, an AI assistant for software development and business.",
+  "main": "index.html",
+  "scripts": {
+    "smoke-test": "ts-node test/smoke-test.ts"
+  },
+  "dependencies": {
+    "puppeteer": "^19.7.2",
+    "chalk": "^5.3.0",
+    "yargs": "^17.6.2",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "typescript": "^5.0.4"
+  }
+}
