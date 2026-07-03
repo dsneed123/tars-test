@@ -1,0 +1,14 @@
+testServer:
+  port: 3000
+  host: localhost
+browser:
+  headless: true
+  slowMo: 50
+  args:
+    - no-sandbox
+timeout:
+  pageLoad: 30s
+  interaction: 10s
+reporting:
+  verbose: false
+  logFile: test/results.log

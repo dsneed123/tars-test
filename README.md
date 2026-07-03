@@ -1,14 +1,22 @@
 # tars-test
 
-tars-test is a project designed to demonstrate the capabilities of TARS, an AI assistant for software development and business. This repository contains a simple HTML file that serves as a starting point for testing and showcasing various features.
+A simple demonstration project showcasing the integration of TARS, an AI assistant for software development and business.
 
-## How to Run Locally
-
-1. Clone this repository to your local machine:
+## Running Locally
+1. Clone the repository:
    ```bash
-git clone https://github.com/your-repo/tars-test.git
+git clone https://github.com/dsneed123/tars-test.git
 cd tars-test
 ```
-2. Open the `index.html` file in a web browser of your choice.
+2. Install dependencies:
+   ```bash
+npm install
+```
+3. Run the smoke test:
+   ```bash
+npm run smoke-test
+```
 
-This will display the content of the HTML file, allowing you to see how TARS can be integrated into simple web projects.
+## Testing
+- The project includes a CLI-based smoke test suite that validates HTML page loading, TARS integration functionality, and interactive elements.
+- Test results are logged to `test/results.log`.
