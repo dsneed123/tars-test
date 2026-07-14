@@ -4,7 +4,8 @@
   "description": "A simple demonstration project showcasing the integration of TARS, an AI assistant for software development and business.",
   "main": "index.html",
   "scripts": {
-    "smoke-test": "ts-node test/smoke-test.ts"
+    "smoke-test": "ts-node test/smoke-test.ts",
+    "test:queue": "node test/queue-smoke-test.js"
   },
   "dependencies": {
     "puppeteer": "^19.7.2",
