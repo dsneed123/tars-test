@@ -81,6 +81,19 @@
             <h2>About this Project</h2>
             <p>This is the tars-test project, a repository used for testing and demonstrating the capabilities of the TARS AI assistant. The project showcases how TARS can be utilized for software development tasks including code implementation, testing, and project management.</p>
         </section>
+        <section>
+            <h2>Task Queue System</h2>
+            <p>This demo shows a simple task queuing system that can queue tasks for execution.</p>
+            <div id="queueControls">
+                <input type="text" id="taskInput" placeholder="Enter a task to queue">
+                <button id="queueTaskBtn">Queue Task</button>
+                <button id="processQueueBtn">Process Queue</button>
+            </div>
+            <div id="queueDisplay">
+                <h3>Queued Tasks:</h3>
+                <ul id="taskList"></ul>
+            </div>
+        </section>
     </main>
     <footer>
         (c) 2026 TARS Test | Last updated: July 2026
@@ -115,6 +128,107 @@
 
         // Add event listener to toggle button
         document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+        // Task Queue Implementation
+        class TaskQueue {
+            constructor() {
+                this.queue = [];
+                this.processing = false;
+            }
+
+            queueTask(task) {
+                if (typeof task === 'string') {
+                    this.queue.push({
+                        id: Date.now(),
+                        description: task,
+                        status: 'queued',
+                        timestamp: new Date()
+                    });
+                } else if (typeof task === 'object' && task.description) {
+                    this.queue.push({
+                        id: Date.now(),
+                        description: task.description,
+                        status: 'queued',
+                        timestamp: new Date(),
+                        priority: task.priority || 0
+                    });
+                }
+                this.updateDisplay();
+            }
+
+            processQueue() {
+                if (this.processing || this.queue.length === 0) {
+                    return;
+                }
+
+                this.processing = true;
+                const taskElement = document.getElementById('taskList');
+                
+                // Process tasks one by one with a delay to simulate work
+                const processNextTask = () => {
+                    if (this.queue.length === 0) {
+                        this.processing = false;
+                        return;
+                    }
+
+                    const task = this.queue.shift();
+                    task.status = 'processing';
+                    this.updateDisplay();
+
+                    // Simulate processing time
+                    setTimeout(() => {
+                        task.status = 'completed';
+                        this.updateDisplay();
+                        
+                        // Process next task after a short delay
+                        setTimeout(processNextTask, 500);
+                    }, 1000);
+                };
+
+                processNextTask();
+            }
+
+            updateDisplay() {
+                const taskList = document.getElementById('taskList');
+                taskList.innerHTML = '';
+
+                this.queue.forEach(task => {
+                    const li = document.createElement('li');
+                    li.textContent = `${task.description} (${task.status})`;
+                    if (task.priority > 0) {
+                        li.style.fontWeight = 'bold';
+                    }
+                    taskList.appendChild(li);
+                });
+            }
+
+            getQueueSize() {
+                return this.queue.length;
+            }
+        }
+
+        // Initialize task queue
+        const taskQueue = new TaskQueue();
+
+        // Set up event listeners for queue controls
+        document.getElementById('queueTaskBtn').addEventListener('click', () => {
+            const input = document.getElementById('taskInput');
+            if (input.value.trim()) {
+                taskQueue.queueTask(input.value.trim());
+                input.value = '';
+            }
+        });
+
+        document.getElementById('processQueueBtn').addEventListener('click', () => {
+            taskQueue.processQueue();
+        });
+
+        // Allow Enter key to queue tasks
+        document.getElementById('taskInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                document.getElementById('queueTaskBtn').click();
+            }
+        });
     </script>
 </body>
 </html>
